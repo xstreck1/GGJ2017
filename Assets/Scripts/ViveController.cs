@@ -13,9 +13,15 @@ public class ViveController : MonoBehaviour
 
     public bool left;
 
+    public Vector3 LastPost { get; private set; }
+
+    public float HeightDiff { get; private set; }
+
     void Start()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
+        LastPost = transform.position;
+        HeightDiff = 0f;
     }
 
     void Update()
@@ -29,5 +35,8 @@ public class ViveController : MonoBehaviour
         {
             MenuPressed = false;
         }
+
+        HeightDiff = LastPost.y - transform.localPosition.y;
+        LastPost = transform.localPosition;
     }
 }
