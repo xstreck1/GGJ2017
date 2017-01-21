@@ -34,7 +34,7 @@ public class Move : MonoBehaviour {
         Debug.Log("diff " + diff);
 
         transform.Translate(Vector3.down * Time.deltaTime * downwardSpeed);
-        transform.Translate(transform.forward * Time.deltaTime * forwardSpeed);
+        transform.Translate(Vector3.forward * Time.deltaTime * forwardSpeed);
         if (turn)
         {
             transform.localRotation = Quaternion.Euler(new Vector3(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y + (Time.deltaTime * turnSpeed * diff),  diff * RotateRat));
