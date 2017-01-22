@@ -8,9 +8,21 @@ ModelImporter:
     100000: Dragon_Body_Final:Group10
     100002: //RootNode
     100004: Wings_Final:ZBrush_defualt_group
+    100006: Armature
+    100008: Bone
+    100010: Bone.001
+    100012: Bone.001_end
+    100014: Bone.002
+    100016: Bone.002_end
     400000: Dragon_Body_Final:Group10
     400002: //RootNode
     400004: Wings_Final:ZBrush_defualt_group
+    400006: Armature
+    400008: Bone
+    400010: Bone.001
+    400012: Bone.001_end
+    400014: Bone.002
+    400016: Bone.002_end
     2300000: Dragon_Body_Final:Group10
     2300002: Wings_Final:ZBrush_defualt_group
     3300000: Dragon_Body_Final:Group10
@@ -18,6 +30,8 @@ ModelImporter:
     4300000: Dragon_Body_Final:Group10
     4300002: Wings_Final:ZBrush_defualt_group
     9500000: //RootNode
+    13700000: Dragon_Body_Final:Group10
+    13700002: Wings_Final:ZBrush_defualt_group
   materials:
     importMaterials: 1
     materialName: 0

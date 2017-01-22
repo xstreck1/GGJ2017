@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour {
+    [NotNull]
+    public Transform leftWing;
+
+    [NotNull]
+    public Transform rightWing;
 
     [NotNull]
     public ViveController left;
@@ -37,6 +42,15 @@ public class Move : MonoBehaviour {
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        Vector3 leftRotate = leftWing.localEulerAngles;
+        leftRotate.y = 160 - ((left.transform.localPosition.y - 1.7f) * 60f);
+        leftWing.localEulerAngles = leftRotate;
+
+
+        Vector3 rightRotate = rightWing.localEulerAngles;
+        rightRotate.y = ((right.transform.localPosition.y - 1.6f) * 60f);
+        rightWing.localEulerAngles = rightRotate;
 
         if (dragon.CanMove)
         {
