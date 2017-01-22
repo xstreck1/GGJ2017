@@ -37,7 +37,7 @@ public class Move : MonoBehaviour {
 
     bool collided;
     float timer;
-    const float totalTime = 60f;
+    const float totalTime = 90f;
 
     int points = 0;
     const int pointInc = 50;
@@ -55,11 +55,13 @@ public class Move : MonoBehaviour {
             {
                 gui.text = "wave your hands in " + Convert.ToInt32(0f - timer);
             }
+            else if (timer > totalTime)
+            {
+                gui.text = "final score " + points;
+            }
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             return;
         }
-
-        gui.text = points.ToString();
 
         float diff = left.transform.position.y - right.transform.position.y;
 
@@ -100,7 +102,14 @@ public class Move : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        points += pointInc;
-        GameObject.Destroy(other.gameObject);
+        if (other.tag == "loop")
+            points += pointInc;
+        else
+        {
+
+            Debug.Log("Collided");
+            collided = true;
+            gui.text = "CRASHED";
+        }
     }
 }

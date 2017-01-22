@@ -5,6 +5,12 @@ using System;
 
 public class ViveController : MonoBehaviour
 {
+    [NotNull]
+    public AudioSource shortFlap;
+
+    [NotNull]
+    public AudioSource longFlap;
+
     SteamVR_TrackedObject trackedObj;
     public SteamVR_Controller.Device Controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
 
@@ -15,6 +21,8 @@ public class ViveController : MonoBehaviour
     public Vector3 LastPost { get; private set; }
 
     public float HeightDiff { get; private set; }
+
+    public float cummulativeHeight = 0f;
 
     void Start()
     {
@@ -38,5 +46,20 @@ public class ViveController : MonoBehaviour
 
         HeightDiff = LastPost.y - transform.localPosition.y;
         LastPost = transform.localPosition;
+
+        if (HeightDiff > 0f)
+        {
+            cummulativeHeight += HeightDiff;
+        }
+        else if (cummulativeHeight > 0.7f)
+        {
+            longFlap.Play();
+            cummulativeHeight = 0f;
+        }
+        else if (cummulativeHeight > 0.35f)
+        {
+            shortFlap.Play();
+            cummulativeHeight = 0f;
+        }
     }
 }
