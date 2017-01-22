@@ -55,7 +55,7 @@ public class Move : MonoBehaviour {
                 transform.Translate(Vector3.left * Time.deltaTime * strafeSpeed * diff);
             }
 
-            Debug.Log("Rise " + Mathf.Max(left.HeightDiff, right.HeightDiff));
+            // Debug.Log("Rise " + Mathf.Max(left.HeightDiff, right.HeightDiff));
 
             // Wave down
             if (left.HeightDiff > 0f && right.HeightDiff > 0f)

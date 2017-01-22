@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class DragonFollow : MonoBehaviour
 {
     [NotNull]
-    public TextMesh gui;
+    public Text gui;
 
     AudioSource pickupSound;
 
@@ -29,6 +30,7 @@ public class DragonFollow : MonoBehaviour
     {
         collided = false;
         timer = -5f;
+        pickupSound = GetComponent<AudioSource>();
     }
 
     void Update()
