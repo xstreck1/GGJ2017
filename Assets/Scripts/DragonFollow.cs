@@ -2,16 +2,19 @@
 using System.Collections;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
 public class DragonFollow : MonoBehaviour
 {
     [NotNull]
     public TextMesh gui;
 
+    AudioSource pickupSound;
+
     public GameObject eye;
     public Vector3 correction;
     public float heightDiff;
 
-    public bool CanMove { get { return !(timer < 0 || timer > totalTime || collided);  } }
+    public bool CanMove { get { return !(timer < 0 || timer > totalTime || collided); } }
 
     const int pointInc = 50;
 
@@ -68,7 +71,10 @@ public class DragonFollow : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "loop")
+        {
             points += pointInc;
+            pickupSound.Play();
+        }
         else
         {
 
