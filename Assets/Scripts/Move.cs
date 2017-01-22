@@ -63,7 +63,7 @@ public class Move : MonoBehaviour {
         // Wave down
         if (left.HeightDiff < 0f && right.HeightDiff < 0f)
         {
-            float rise = Mathf.Max(left.HeightDiff, right.HeightDiff);
+            float rise = -1 * Mathf.Max(left.HeightDiff, right.HeightDiff);
             transform.Translate(Vector3.up * waveRiseRatio * rise);
         }
     }
