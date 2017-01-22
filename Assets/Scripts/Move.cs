@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour {
 
@@ -16,6 +18,9 @@ public class Move : MonoBehaviour {
     [NotNull]
     public Transform dragon;
 
+    [NotNull]
+    public TextMesh gui;
+
     public float forwardSpeed;
 
     public float downwardSpeed;
@@ -30,18 +35,31 @@ public class Move : MonoBehaviour {
 
     public float waveRiseRatio;
 
-    bool collided = false;
+    bool collided;
+    float timer;
+    const float totalTime = 60f;
+
+    int points = 0;
+    const int pointInc = 50;
 
     void Start () {
-		
-	}
+        collided = false;
+        timer = -5f;
+    }
 	
 	void Update () {
-        if (collided)
+        timer += Time.deltaTime;
+        if (timer < 0 || timer > totalTime || collided)
         {
+            if (timer < 0)
+            {
+                gui.text = "wave your hands in " + Convert.ToInt32(0f - timer);
+            }
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             return;
         }
+
+        gui.text = points.ToString();
 
         float diff = left.transform.position.y - right.transform.position.y;
 
@@ -66,12 +84,23 @@ public class Move : MonoBehaviour {
             float rise = Mathf.Min(left.HeightDiff, right.HeightDiff);
             transform.Translate(Vector3.up * waveRiseRatio * rise);
         }
+
+        if (left.MenuPressed && right.MenuPressed)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
-
-    private void OnTriggerEnter(Collider other)
-    { 
+    private void OnCollisionEnter(Collision collision)
+    {
         Debug.Log("Collided");
         collided = true;
+        gui.text = "CRASHED";
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        points += pointInc;
+        GameObject.Destroy(other.gameObject);
     }
 }
