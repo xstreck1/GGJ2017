@@ -18,6 +18,7 @@ public class DragonBreath : MonoBehaviour {
 		if ((timeToBreathe -= Time.deltaTime) < 0f)
         {
             breathSound.Play();
+            timeToBreathe = Random.Range(2f, 7f);
         }
 	}
 }

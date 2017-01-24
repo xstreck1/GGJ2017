@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Move : MonoBehaviour {
+public class Move : MonoBehaviour
+{
     [NotNull]
     public Transform leftWing;
 
@@ -22,7 +23,11 @@ public class Move : MonoBehaviour {
     [NotNull]
     public DragonFollow dragon;
 
+    float currentForwardSpeed;
+
     public float forwardSpeed;
+
+    public float timeToAccelerate;
 
     public float downwardSpeed;
 
@@ -36,8 +41,16 @@ public class Move : MonoBehaviour {
 
     public float waveRiseRatio;
 
-	
-	void Update () {
+    private void Start()
+    {
+        currentForwardSpeed = 0f;
+    }
+
+    void Update()
+    {
+        if (dragon.Timer < 1f)
+            return;
+
         if (left.MenuPressed && right.MenuPressed)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -52,12 +65,17 @@ public class Move : MonoBehaviour {
         rightRotate.y = ((right.transform.localPosition.y - 1.6f) * 60f);
         rightWing.localEulerAngles = rightRotate;
 
-        if (dragon.CanMove)
+        if (!dragon.Collided)
         {
+            if (currentForwardSpeed < forwardSpeed)
+            {
+                currentForwardSpeed += forwardSpeed * (Time.deltaTime / timeToAccelerate);
+            }
+
             float diff = left.transform.position.y - right.transform.position.y;
 
             transform.Translate(Vector3.down * Time.deltaTime * downwardSpeed);
-            transform.Translate(Vector3.forward * Time.deltaTime * forwardSpeed);
+            transform.Translate(Vector3.forward * Time.deltaTime * currentForwardSpeed);
             if (turn)
             {
                 transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * diff);
@@ -68,15 +86,19 @@ public class Move : MonoBehaviour {
             {
                 transform.Translate(Vector3.left * Time.deltaTime * strafeSpeed * diff);
             }
-
-            // Debug.Log("Rise " + Mathf.Max(left.HeightDiff, right.HeightDiff));
-
-            // Wave down
-            if (left.HeightDiff > 0f && right.HeightDiff > 0f)
-            {
-                float rise = Mathf.Min(left.HeightDiff, right.HeightDiff);
-                transform.Translate(Vector3.up * waveRiseRatio * rise);
-            }
         }
+        else
+        {
+            currentForwardSpeed = 0f;
+        }
+        // Debug.Log("Rise " + Mathf.Max(left.HeightDiff, right.HeightDiff));
+
+        // Wave down
+        if (left.HeightDiff > 0f && right.HeightDiff > 0f)
+        {
+            float rise = Mathf.Min(left.HeightDiff, right.HeightDiff);
+            transform.Translate(Vector3.up * waveRiseRatio * rise);
+        }
+
     }
 }
