@@ -5,7 +5,6 @@
 [Oo]bj/
 [Tt]emp/
 [Ll]ogs/
-UnityGenerated/
 sysinfo.txt
 
 *.booproj
@@ -45,18 +44,6 @@ Icon?
 # Coherent generated
 
 Assets/CoherentUI/DebuggerWindows.meta
-
-# External tools
-
-Assets/Editor/
-Assets/SteamVR/
-Assets/SteamVR.meta
-Assets/Standard Assets/*
-Assets/Standard Assets.meta
-Assets/ShaderForge
-Assets/ShaderForge.meta
-Assets/RedBlueGames*
-ProjectSettings/*
 
 min/
 min.meta

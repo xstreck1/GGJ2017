@@ -3,22 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour
 {
-    [NotNull]
     public Transform leftWing;
 
-    [NotNull]
     public Transform rightWing;
 
-    [NotNull]
-    public ViveController left;
+    public Controller left;
 
-    [NotNull]
-    public ViveController right;
+    public Controller right;
 
-    [NotNull]
     public Transform eye;
 
-    [NotNull]
     public DragonFollow dragon;
 
     float currentForwardSpeed;

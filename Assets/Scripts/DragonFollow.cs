@@ -6,7 +6,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class DragonFollow : MonoBehaviour
 {
-    [NotNull]
     public Text gui;
 
     AudioSource pickupSound;
