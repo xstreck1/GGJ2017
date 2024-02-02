@@ -16,7 +16,8 @@ MonoBehaviour:
     m_SettingsList: []
     m_RuntimeSettings: []
   m_AssetVersion: 5
-  m_DefaultVolumeProfile: {fileID: 0}
+  m_DefaultVolumeProfile: {fileID: 11400000, guid: 8ab125b65486db549b533981a1b1e28e,
+    type: 2}
   m_RenderingLayerNames:
   - Default
   m_ValidRenderingLayers: 1
@@ -38,8 +39,9 @@ MonoBehaviour:
       m_Keys: []
       m_Values: []
     hasProbeVolumes:
-      m_Keys: []
-      m_Values: 
+      m_Keys:
+      - 4ef428bf00f7ec648b82a0431c9e4286
+      m_Values: 00
   m_ShaderStrippingSetting:
     m_Version: 0
     m_ExportShaderVariants: 1
