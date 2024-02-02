@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-using System;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.XR;
 
 public class ViveController : MonoBehaviour
 {
@@ -11,10 +10,7 @@ public class ViveController : MonoBehaviour
     [NotNull]
     public AudioSource longFlap;
 
-    SteamVR_TrackedObject trackedObj;
-    public SteamVR_Controller.Device Controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
-
-    public bool MenuPressed { private set; get; }
+    public bool MenuPressed { get;  private set;}
 
     public bool left;
 
@@ -23,43 +19,49 @@ public class ViveController : MonoBehaviour
     public float HeightDiff { get; private set; }
 
     public float cummulativeHeight = 0f;
+    
+    private Transform _transform;
 
     void Start()
     {
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
-        LastPost = transform.position;
+        _transform = transform;
+        LastPost = _transform.position;
         HeightDiff = 0f;
         MenuPressed = false;
     }
 
     void Update()
     {
-        if (Controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
+        var devices = new List<InputDevice>();
+        InputDevices.GetDevices(devices);
+        foreach (var device in devices)
         {
-            MenuPressed = true;
+            var dirFlag = left ? InputDeviceCharacteristics.Left : InputDeviceCharacteristics.Right;
+            if (device.characteristics.HasFlag(InputDeviceCharacteristics.Controller | dirFlag))
+            {
+                device.TryGetFeatureValue(CommonUsages.menuButton, out bool pressed);
+                MenuPressed = pressed;
+            }
         }
 
-        if (Controller.GetPressUp(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
-        {
-            MenuPressed = false;
-        }
-
-        HeightDiff = LastPost.y - transform.localPosition.y;
-        LastPost = transform.localPosition;
+        var localPos = _transform.localPosition;
+        HeightDiff = LastPost.y - localPos.y;
+        LastPost = localPos;
 
         if (HeightDiff > 0f)
         {
             cummulativeHeight += HeightDiff;
         }
-        else if (cummulativeHeight > 0.7f)
+        else switch (cummulativeHeight)
         {
-            longFlap.Play();
-            cummulativeHeight = 0f;
-        }
-        else if (cummulativeHeight > 0.35f)
-        {
-            shortFlap.Play();
-            cummulativeHeight = 0f;
+            case > 0.7f:
+                longFlap.Play();
+                cummulativeHeight = 0f;
+                break;
+            case > 0.35f:
+                shortFlap.Play();
+                cummulativeHeight = 0f;
+                break;
         }
     }
 }
