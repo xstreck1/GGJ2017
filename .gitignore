@@ -4,6 +4,7 @@
 [Ll]ibrary/
 [Oo]bj/
 [Tt]emp/
+[Ll]ogs/
 UnityGenerated/
 sysinfo.txt
 
@@ -50,15 +51,11 @@ Assets/CoherentUI/DebuggerWindows.meta
 Assets/Editor/
 Assets/SteamVR/
 Assets/SteamVR.meta
-Assets/Plugins/*
 Assets/Standard Assets/*
 Assets/Standard Assets.meta
-Assets/Old
-Assets/Old.meta
 Assets/ShaderForge
 Assets/ShaderForge.meta
 Assets/RedBlueGames*
-Assets/UVFreeShaders*
 ProjectSettings/*
 
 min/
