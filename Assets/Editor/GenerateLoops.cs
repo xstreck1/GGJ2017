@@ -8,7 +8,7 @@ public class GenerateLoops : EditorWindow
     [MenuItem("Window/Generate Loops")]
     static void Init()
     {
-        GenerateLoops window = (GenerateLoops)EditorWindow.GetWindow(typeof(GenerateLoops));
+        var window = (GenerateLoops)GetWindow(typeof(GenerateLoops));
         window.Show();
     }
 
@@ -21,13 +21,16 @@ public class GenerateLoops : EditorWindow
             if (loopPrefab == null)
                 return;
 
-            GameObject loops = new GameObject();
-
+            var loops = new GameObject("Loops");
             for (int i = 0; i < 500; i++)
             {
-                Vector3 newPos = new Vector3(Random.Range(-1000f, 1000f), Random.Range(0f,100f), Random.Range(-1000f, 1000f));
-                Quaternion newRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
-                GameObject newLoop = GameObject.Instantiate(loopPrefab, newPos, newRotation, loops.transform);
+                var newPos = new Vector3(Random.Range(-1000f, 1000f), Random.Range(0f,100f), Random.Range(-1000f, 1000f));
+                var newRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                // instantiate the prefab
+                var loop = (GameObject)PrefabUtility.InstantiatePrefab(loopPrefab);
+                loop.transform.position = newPos;
+                loop.transform.rotation = newRotation;
+                loop.transform.parent = loops.transform;
             }
         }
     }

@@ -22,6 +22,7 @@ sysinfo.txt
 *.user
 *.userprefs
 Assets/UnityVS*
+Assets/Allsky/
 DerivedData/
 ExportedObj/
 Debug/
