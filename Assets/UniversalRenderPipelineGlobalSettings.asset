@@ -32,10 +32,8 @@ MonoBehaviour:
   apvScenesData:
     m_ObsoleteSerializedBakingSets: []
     sceneToBakingSet:
-      m_Keys:
-      - 4ef428bf00f7ec648b82a0431c9e4286
-      m_Values:
-      - {fileID: 0}
+      m_Keys: []
+      m_Values: []
     bakingSets: []
     sceneBounds:
       m_Keys: []
